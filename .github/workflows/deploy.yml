@@ -23,3 +23,12 @@ jobs:
     - run: npm run format:ci
     - run: npm run lint
     - run: npm test
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@7.0.1
+      with:
+        switches: -a --delete
+        path: dist/
+        remote_path: /var/www/cicd/
+        remote_host: 164.90.206.1
+        remote_user: root
+        remote_key: ${{ secrets.DEPLOY_KEY }}
